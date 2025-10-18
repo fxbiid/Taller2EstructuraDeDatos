@@ -112,7 +112,7 @@ SparseMatrix *SparseMatrix::multiply(SparseMatrix *second) {
                 continue;
             }
             int ac = resultado -> get(i,j);
-            long long nuevitoo = ac+resu;
+            long long nuevitoo = ac+resuk;
 
             resultado -> add(static_cast<int>(nuevitoo),i,j);
 
