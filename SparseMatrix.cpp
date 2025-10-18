@@ -14,7 +14,7 @@ void SparseMatrix::add(int value, int xPos, int yPos) {
     Nodo* actual = start;
     Nodo* anterior= nullptr;
 
-    while (actual!=nullptr(actual -> x <xPos || actual -> x == xPos && actual -> y <yPos)) {
+    while (actual!=nullptr && (actual -> x <xPos || actual -> x == xPos && actual -> y <yPos)) {
         anterior = actual;
         actual = actual -> next;
 
@@ -73,6 +73,15 @@ void SparseMatrix::remove(int xPos, int yPos) {
 
 
 void SparseMatrix::printStoredValues() {
+    if (!start) {
+        cout<<"Matriz vacia"<<endl;
+        return;
+    }
+        Nodo* actual = start;
+        while (actual!=nullptr) {
+            cout<<actual -> x<<","<<actual -> y<<"valor en esa posicion: "<<actual -> value<<endl;
+            actual = actual -> next;
+        }
 
 }
 
@@ -81,11 +90,47 @@ int SparseMatrix::density() {
 }
 
 SparseMatrix *SparseMatrix::multiply(SparseMatrix *second) {
+    if (!second) {
+        return nullptr;
+    }
+    SparseMatrix* resultado = new SparseMatrix();
+    //esto lo vemos asi resultado= A*B
+    for (Nodo* a = this->start; a != nullptr; a = a->next) {
+        int i = a ->x;
+        int k = a ->y;
+
+        for (Nodo* b = second->start; b != nullptr; b = b->next) {
+            if (b ->x <k) {
+                continue;
+            }
+            if (b ->x > k) {
+                break;
+            }
+            int j = b ->y;
+            long long resu = 1LL * a->value * b->value;
+            if (resu==0) {
+                continue;
+            }
+            int ac = resultado -> get(i,j);
+            long long nuevitoo = ac+resu;
+
+            resultado -> add(static_cast<int>(nuevitoo),i,j);
+
+
+        }
+    }
+
+    return resultado;
 
 }
 
 SparseMatrix::~SparseMatrix() {
-
+ Nodo* actual = start;
+    while (actual!=nullptr) {
+        Nodo* temp = actual;
+        actual = actual -> next;
+        delete temp;
+    }
 }
 
 
