@@ -6,3 +6,6 @@ Nodo::Nodo(int x, int y, int value) {
     this->value = value;
     this->next = nullptr;
 }
+Nodo::~Nodo() {
+
+}

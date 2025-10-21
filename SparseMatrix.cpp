@@ -20,11 +20,11 @@ void SparseMatrix::add(int value, int xPos, int yPos) {
 
     }
     //por si existe ya un nodo en esa posicion borramos el nodo nuevo pq ya esta ocupada solo actualizamos su valor
-    if (actual -> x == xPos && actual -> y == yPos) {
-        actual -> value = value;
-        delete nuevoNodo;
-        return;
-    }
+   if (actual!=nullptr && actual->x == xPos && actual->y == yPos) {
+       actual -> value = value;
+       delete nuevoNodo;
+       return;
+   }
     //para ponerlo entre el anterior y el actual (anterior vacio actual) en vacio seria
     if (anterior == nullptr) { // si el anterior esta en nulo lo ponemos en el principio entonces seria nuevo , start (nuevo | start )
         nuevoNodo -> next = start;
@@ -44,9 +44,10 @@ int SparseMatrix::get(int x, int y) {
             return actual -> value;
         }
         if (actual ->x >x || actual -> x == x && actual -> y >y) {
-            actual = actual -> next;
+            break;
 
         }
+        actual = actual -> next;
     }
     return 0;
 }
@@ -79,7 +80,7 @@ void SparseMatrix::printStoredValues() {
     }
         Nodo* actual = start;
         while (actual!=nullptr) {
-            cout<<actual -> x<<","<<actual -> y<<"valor en esa posicion: "<<actual -> value<<endl;
+            cout<<actual -> x<<","<<actual -> y<<" valor en esa posicion: "<<actual -> value<<endl;
             actual = actual -> next;
         }
 
@@ -112,7 +113,7 @@ SparseMatrix *SparseMatrix::multiply(SparseMatrix *second) {
                 continue;
             }
             int ac = resultado -> get(i,j);
-            long long nuevitoo = ac+resuk;
+            long long nuevitoo = ac+resu;
 
             resultado -> add(static_cast<int>(nuevitoo),i,j);
 
