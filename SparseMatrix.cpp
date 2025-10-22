@@ -87,6 +87,30 @@ void SparseMatrix::printStoredValues() {
 }
 
 int SparseMatrix::density() {
+    if (start == nullptr) {
+        return 0;
+    }
+    int cant=0;
+    int maxX=0;
+    int maxY=0;
+    for (Nodo* actual = start; actual!=nullptr; actual = actual -> next) {
+        cant++;
+        if (actual -> x > maxX) {
+            maxX = actual -> x;
+        }
+        if (actual -> y > maxY) {
+            maxY = actual -> y;
+        }
+
+    }
+    long long tamTotal = 1LL * (maxX+1) * (maxY+1);
+    if (tamTotal == 0) {
+        return 0;
+    }
+    int porcen = static_cast<int>((cant*100LL)/tamTotal);
+
+    return porcen;
+
 
 }
 
