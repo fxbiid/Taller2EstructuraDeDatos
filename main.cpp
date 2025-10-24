@@ -8,6 +8,7 @@ int main() {
     srand(time(NULL));
     //prueba en add
     int cants[] = {50,250,500,1000,5000};
+
     cout<<"Pruebas en funcion add"<<endl;
     for(int i=0;i<5;i++) {
         int n = cants[i];
