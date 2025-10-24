@@ -6,34 +6,37 @@ SparseMatrix::SparseMatrix() {
 }
 
 void SparseMatrix::add(int value, int xPos, int yPos) {
-    Nodo* nuevoNodo = new Nodo(xPos, yPos, value);
-    if (start == nullptr) {
-        start = nuevoNodo;
-        return;
-    }
-    Nodo* actual = start;
-    Nodo* anterior= nullptr;
+    if (value!=0) {
+        Nodo* nuevoNodo = new Nodo(xPos, yPos, value);
+        if (start == nullptr) {
+            start = nuevoNodo;
+            return;
+        }
+        Nodo* actual = start;
+        Nodo* anterior= nullptr;
 
-    while (actual!=nullptr && (actual -> x <xPos || actual -> x == xPos && actual -> y <yPos)) {
-        anterior = actual;
-        actual = actual -> next;
+        while (actual!=nullptr && ((actual -> x <xPos || actual -> x == xPos && actual -> y <yPos))) {
+            anterior = actual;
+            actual = actual -> next;
 
-    }
-    //por si existe ya un nodo en esa posicion borramos el nodo nuevo pq ya esta ocupada solo actualizamos su valor
-   if (actual!=nullptr && actual->x == xPos && actual->y == yPos) {
-       actual -> value = value;
-       delete nuevoNodo;
-       return;
-   }
-    //para ponerlo entre el anterior y el actual (anterior vacio actual) en vacio seria
-    if (anterior == nullptr) { // si el anterior esta en nulo lo ponemos en el principio entonces seria nuevo , start (nuevo | start )
-        nuevoNodo -> next = start;
-        start = nuevoNodo;
-    }else { //si tiene anterior hacemos lo de ponerlo entremedio de los 2
-        anterior -> next = nuevoNodo;
-        nuevoNodo -> next = actual;
+        }
+        //por si existe ya un nodo en esa posicion borramos el nodo nuevo pq ya esta ocupada solo actualizamos su valor
+        if (actual!=nullptr && actual->x == xPos && actual->y == yPos) {
+            actual -> value = value;
+            delete nuevoNodo;
+            return;
+        }
+        //para ponerlo entre el anterior y el actual (anterior vacio actual) en vacio seria
+        if (anterior == nullptr) { // si el anterior esta en nulo lo ponemos en el principio entonces seria nuevo , start (nuevo | start )
+            nuevoNodo -> next = start;
+            start = nuevoNodo;
+        }else { //si tiene anterior hacemos lo de ponerlo entremedio de los 2
+            anterior -> next = nuevoNodo;
+            nuevoNodo -> next = actual;
 
+        }
     }
+
 
 }
 
@@ -43,7 +46,7 @@ int SparseMatrix::get(int x, int y) {
         if (actual -> x == x && actual -> y == y) {
             return actual -> value;
         }
-        if (actual ->x >x || actual -> x == x && actual -> y >y) {
+        if ((actual ->x >x) || (actual -> x == x && actual -> y >y)) {
             break;
 
         }

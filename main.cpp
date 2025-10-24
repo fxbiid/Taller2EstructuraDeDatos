@@ -17,7 +17,7 @@ int main() {
         for (int j = 0; j < n; j++) {
             int x = rand() % 100;
             int y = rand() % 100;
-            int valor = rand()+1 % 100;
+            int valor = (rand() % 100)+1;
             matrix.add(valor, x, y);
 
         }
@@ -32,7 +32,7 @@ int main() {
         int n = cants[i];
         SparseMatrix matrix2;
         for (int x = 0; x < n; x++) {
-            matrix2.add(rand()+1 % 100, rand() % 100, rand() % 100);
+            matrix2.add((rand() % 100)+1, rand() % 100, rand() % 100);
         }
         clock_t inicioPruebaGet = clock();
         for (int j = 0; j < n; j++) {
@@ -49,8 +49,8 @@ int main() {
         int n = cants[i];
         SparseMatrix A,B;
         for (int x = 0; x < n; x++) {
-            A.add(rand() % 100, rand() % 100, rand() % 100);
-            B.add(rand() % 100, rand() % 100, rand() % 100);
+            A.add((rand() % 100)+1, rand() % 100, rand() % 100);
+            B.add((rand() % 100)+1, rand() % 100, rand() % 100);
         }
         clock_t inicioPruebaMulti = clock();
         SparseMatrix* C = A.multiply(&B);
